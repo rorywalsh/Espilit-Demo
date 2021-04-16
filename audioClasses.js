@@ -4,6 +4,11 @@ class OneShotCollisionSound {
         this.y = (typeof args.y === 'undefined' ? 1 : args.y);
         this.w = (typeof args.w === 'undefined' ? .3 : args.w);
         this.h = (typeof args.h === 'undefined' ? .3 : args.h);
+        this.spatialSound = (typeof args.spatialSound === 'undefined' ? false : args.spatialSound);
+        this.distanceModel = (typeof args.distanceModel === 'undefined' ? "exponential" : args.distanceModel);
+        this.rolloffFactor = (typeof args.rolloffFactor === 'undefined' ? 1 : args.rolloffFactor);
+        this.polyphony = (typeof args.polyphony === 'undefined' ? true : args.polyphony);
+
         this.visible = (typeof args.visible === 'undefined' ? true : args.visible);
         this.name = (typeof args.name === 'undefined' ? args.file : args.name);
         this.volume = (typeof args.volume === 'undefined' ? 0.5 : args.volume);
@@ -24,7 +29,14 @@ class OneShotCollisionSound {
             // Call with the sound is ready to be played (loaded & decoded)
             // TODO: add your logic
             console.log("Sound ready to be played!");
-        }, { loop: false, autoplay: false, spatialSound: false, volume: this.volume });
+        }, {
+            loop: false,
+            autoplay: false,
+            spatialSound: this.spatialSound,
+            distanceModel: this.distanceModel,
+            rolloffFactor: this.rolloffFactor,
+            volume: this.volume
+        });
         // Sound will now follow the mesh position
         this.sound.attachToMesh(this.box);
         this.canPlay = true;
@@ -33,7 +45,14 @@ class OneShotCollisionSound {
     play() {
         var that = this;
         if (this.canPlay === true) {
-            this.sound.play();
+            if (this.polyphony == false) {
+                if (this.sound.isPlaying == false) {
+                    this.sound.play();
+                }
+            } else {
+                this.sound.play();
+            }
+
             this.canPlay = false;
         }
 
