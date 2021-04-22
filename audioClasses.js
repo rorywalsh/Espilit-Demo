@@ -9,6 +9,8 @@ class OneShotCollisionSound {
         this.rolloffFactor = (typeof args.rolloffFactor === 'undefined' ? 1 : args.rolloffFactor);
         this.polyphony = (typeof args.polyphony === 'undefined' ? true : args.polyphony);
 
+
+        console.log(this.spatialSound);
         this.visible = (typeof args.visible === 'undefined' ? true : args.visible);
         this.name = (typeof args.name === 'undefined' ? args.file : args.name);
         this.volume = (typeof args.volume === 'undefined' ? 0.5 : args.volume);
@@ -22,21 +24,35 @@ class OneShotCollisionSound {
         else
             this.box.material.alpha = 0;
 
-        this.box.scaling = new BABYLON.Vector3(this.w, 1, this.h);
+        this.box.scaling = new BABYLON.Vector3(this.w, this.h, this.w);
         this.box.position = new BABYLON.Vector3(args.x, this.y, args.z);
         // Create and load the sound async
-        this.sound = new BABYLON.Sound(this.name, args.file, scene, function() {
-            // Call with the sound is ready to be played (loaded & decoded)
-            // TODO: add your logic
-            console.log("Sound ready to be played!");
-        }, {
-            loop: false,
-            autoplay: false,
-            spatialSound: this.spatialSound,
-            distanceModel: this.distanceModel,
-            rolloffFactor: this.rolloffFactor,
-            volume: this.volume
-        });
+
+        if (this.spatialSound) {
+            this.sound = new BABYLON.Sound(this.name, args.file, scene, function() {
+                // Call with the sound is ready to be played (loaded & decoded)
+                // TODO: add your logic
+                console.log("Sound ready to be played!");
+            }, {
+                loop: false,
+                autoplay: false,
+                spatialSound: this.spatialSound,
+                distanceModel: this.distanceModel,
+                rolloffFactor: this.rolloffFactor,
+                volume: this.volume
+            });
+        } else {
+            this.sound = new BABYLON.Sound(this.name, args.file, scene, function() {
+                // Call with the sound is ready to be played (loaded & decoded)
+                // TODO: add your logic
+                console.log("Sound ready to be played!");
+            }, {
+                loop: false,
+                autoplay: false,
+                volume: this.volume
+            });
+        }
+
         // Sound will now follow the mesh position
         this.sound.attachToMesh(this.box);
         this.canPlay = true;
