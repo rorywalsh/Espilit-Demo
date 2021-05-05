@@ -14,7 +14,7 @@
         scene.fogColor = new BABYLON.Color3(0, 0, 0);
 
         var camera = scene.activeCamera;
-        var cameraBox = BABYLON.Mesh.CreateBox("CameraBox", .1, scene);
+        var cameraBox = BABYLON.Mesh.CreateBox("CameraBox", .5, scene);
         cameraBox.isVisible = false;
         cameraBox.position = new BABYLON.Vector3(0, 0, 0);
         cameraBox.parent = camera;
