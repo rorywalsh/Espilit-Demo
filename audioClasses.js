@@ -3,14 +3,14 @@ class OneShotCollisionSound {
         //Simple crate
         this.y = (typeof args.y === 'undefined' ? 1 : args.y);
         this.w = (typeof args.w === 'undefined' ? .3 : args.w);
-        this.h = (typeof args.h === 'undefined' ? .3 : args.h);
+        this.h = (typeof args.h === 'undefined' ? .7 : args.h);
         this.spatialSound = (typeof args.spatialSound === 'undefined' ? false : args.spatialSound);
         this.distanceModel = (typeof args.distanceModel === 'undefined' ? "exponential" : args.distanceModel);
         this.rolloffFactor = (typeof args.rolloffFactor === 'undefined' ? 1 : args.rolloffFactor);
         this.polyphony = (typeof args.polyphony === 'undefined' ? true : args.polyphony);
 
 
-        console.log(this.spatialSound);
+        //console.log(this.spatialSound);
         this.visible = (typeof args.visible === 'undefined' ? true : args.visible);
         this.name = (typeof args.name === 'undefined' ? args.file : args.name);
         this.volume = (typeof args.volume === 'undefined' ? 0.5 : args.volume);
@@ -61,6 +61,7 @@ class OneShotCollisionSound {
     play() {
         var that = this;
         if (this.canPlay === true) {
+            console.log(this.name);
             if (this.polyphony == false) {
                 if (this.sound.isPlaying == false) {
                     this.sound.play();
