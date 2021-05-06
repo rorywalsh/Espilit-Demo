@@ -4,6 +4,7 @@ class OneShotCollisionSound {
         this.y = (typeof args.y === 'undefined' ? 1 : args.y);
         this.w = (typeof args.w === 'undefined' ? .3 : args.w);
         this.h = (typeof args.h === 'undefined' ? .7 : args.h);
+        this.delay = (typeof args.delay === 'undefined' ? 0 : args.delay);
         this.spatialSound = (typeof args.spatialSound === 'undefined' ? false : args.spatialSound);
         this.distanceModel = (typeof args.distanceModel === 'undefined' ? "exponential" : args.distanceModel);
         this.rolloffFactor = (typeof args.rolloffFactor === 'undefined' ? 1 : args.rolloffFactor);
@@ -64,10 +65,10 @@ class OneShotCollisionSound {
         if (this.canPlay === true && this.playCount == 0) {
             if (this.polyphony == false) {
                 if (this.sound.isPlaying == false) {
-                    this.sound.play();
+                    this.sound.play(this.delay);
                 }
             } else {
-                this.sound.play();
+                this.sound.play(this.delay);
             }
             if (this.singlePlay == true)
                 this.playCount++;

@@ -54,8 +54,10 @@
 
         //sample trigger sounds....
         let triggerSounds = [];
-        triggerSounds.push(new OneShotCollisionSound({ file: "./build/assets/collision1.wav", x: 2, z: 0.5, singlePlay: true }));
-        triggerSounds.push(new OneShotCollisionSound({ file: "./build/assets/Guitar1.wav", x: 4.8, z: -3, spatialSound: true, rolloffFactor: 2, polyphony: false }));
+        triggerSounds.push(new OneShotCollisionSound({ file: "./build/assets/collision1.wav", x: 2, z: 0.5, delay: 2 }));
+        triggerSounds.push(new OneShotCollisionSound({ file: "./build/assets/collision2.wav", x: 4.8, z: -3, spatialSound: true, rolloffFactor: 2, polyphony: false }));
+
+        let clues = [];
 
         var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
         var crosshair = new BABYLON.GUI.Image("crosshair", "./build/assets/crosshairWhite.png");
@@ -107,6 +109,7 @@
                 });
             }
         });
+
 
     }
 };
