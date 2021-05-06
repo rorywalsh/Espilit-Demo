@@ -8,8 +8,8 @@ class OneShotCollisionSound {
         this.distanceModel = (typeof args.distanceModel === 'undefined' ? "exponential" : args.distanceModel);
         this.rolloffFactor = (typeof args.rolloffFactor === 'undefined' ? 1 : args.rolloffFactor);
         this.polyphony = (typeof args.polyphony === 'undefined' ? true : args.polyphony);
-
-
+        this.singlePlay = (typeof args.singlePlay === 'undefined' ? false : args.singlePlay);
+        this.playCount = 0;
         //console.log(this.spatialSound);
         this.visible = (typeof args.visible === 'undefined' ? true : args.visible);
         this.name = (typeof args.name === 'undefined' ? args.file : args.name);
@@ -60,8 +60,8 @@ class OneShotCollisionSound {
 
     play() {
         var that = this;
-        if (this.canPlay === true) {
-            console.log(this.name);
+        console.log(this.playCount);
+        if (this.canPlay === true && this.playCount == 0) {
             if (this.polyphony == false) {
                 if (this.sound.isPlaying == false) {
                     this.sound.play();
@@ -69,6 +69,8 @@ class OneShotCollisionSound {
             } else {
                 this.sound.play();
             }
+            if (this.singlePlay == true)
+                this.playCount++;
 
             this.canPlay = false;
         }

@@ -39,22 +39,22 @@
         VRHelper.enableTeleportation({ floorMeshName: "Sols" });
 
         scene.onKeyboardObservable.add((kbInfo) => {
-            console.log(kbInfo.event.keyCode);
+            // console.log(kbInfo.event.keyCode);
             if (kbInfo.type === BABYLON.KeyboardEventTypes.KEYDOWN) {
                 if (kbInfo.event.keyCode == 32) {
-                    console.log(meshInCrosshair);
+                    // console.log(meshInCrosshair);
                 } else {
-                    console.log("KEY DOWN: ", kbInfo.event.key);
-                    console.log('Player Position X:', camera.position.x.toFixed(2), 'Y:', camera.position.y.toFixed(2), 'Z:', camera.position.z.toFixed(2));
+                    // console.log("KEY DOWN: ", kbInfo.event.key);
+                    // console.log('Player Position X:', camera.position.x.toFixed(2), 'Y:', camera.position.y.toFixed(2), 'Z:', camera.position.z.toFixed(2));
                 }
             } else if (kbInfo.type === BABYLON.KeyboardEventTypes.KEYUP) {
-                console.log("KEY UP: ", kbInfo.event.key);
+                // console.log("KEY UP: ", kbInfo.event.key);
             }
         });
 
         //sample trigger sounds....
         let triggerSounds = [];
-        triggerSounds.push(new OneShotCollisionSound({ file: "./build/assets/collision1.wav", x: 2, z: 0.5 }));
+        triggerSounds.push(new OneShotCollisionSound({ file: "./build/assets/collision1.wav", x: 2, z: 0.5, singlePlay: true }));
         triggerSounds.push(new OneShotCollisionSound({ file: "./build/assets/Guitar1.wav", x: 4.8, z: -3, spatialSound: true, rolloffFactor: 2, polyphony: false }));
 
         var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
@@ -90,12 +90,12 @@
             var ray = new BABYLON.Ray(origin, direction, length);
             var hit = scene.pickWithRay(ray);
             if (hit.pickedMesh) {
-                console.log(hit.pickedMesh.name);
+                // console.log(hit.pickedMesh.name);
                 meshInCrosshair = hit.pickedMesh.name;
             }
         }
 
-        scene.onBeforeRenderObservable.add(() => {
+        scene.onAfterRenderObservable.add(() => {
             textInfo.text = "Player's position X:" + (camera.position.x).toFixed(2) + " Y:" + (camera.position.y).toFixed(2) + " Z:" + (camera.position.z).toFixed(2) + "\nPicked Mesh: " + meshInCrosshair;
             castRay();
             if (cameraBox) {
