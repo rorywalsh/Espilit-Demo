@@ -16,7 +16,7 @@ class OneShotCollisionSound {
         this.name = (typeof args.name === 'undefined' ? args.file : args.name);
         this.volume = (typeof args.volume === 'undefined' ? 0.5 : args.volume);
         this.timeBetweenPlays = (typeof args.timeBetweenPlays === 'undefined' ? 2000 : args.secondsBeforeNextPlay * 1000);
-
+        this.enabled = true;
         this.position = new BABYLON.Vector3(args.x, this.y, args.z);
         this.box = BABYLON.Mesh.CreateBox(this.name, 3, scene);
         this.box.material = new BABYLON.StandardMaterial("Mat", scene);
@@ -61,8 +61,7 @@ class OneShotCollisionSound {
 
     play() {
         var that = this;
-        console.log(this.playCount);
-        if (this.canPlay === true && this.playCount == 0) {
+        if (this.canPlay === true && this.playCount == 0 && this.enabled == true) {
             if (this.polyphony == false) {
                 if (this.sound.isPlaying == false) {
                     this.sound.play(this.delay);
