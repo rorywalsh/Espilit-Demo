@@ -74,6 +74,9 @@ class OneShotCollisionSound {
 
             this.canPlay = false;
         }
-
+    }
+    
+    stop(){
+        this.sound.stop();
     }
 };
